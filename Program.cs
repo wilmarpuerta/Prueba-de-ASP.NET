@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Prueba_de_ASP.NET.Data;
+using Prueba_de_ASP.NET.Services.Owners;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
+
+builder.Services.AddScoped<IOwnersRepository, OwnersRepository>();
 
 builder.Services.AddDbContext<BaseContext> (options => 
     options.UseMySql(
@@ -43,6 +47,8 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
+
+app.MapControllers();
 
 app.Run();
 
