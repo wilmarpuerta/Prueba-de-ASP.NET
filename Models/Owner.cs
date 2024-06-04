@@ -18,7 +18,7 @@ namespace Prueba_de_ASP.NET.Models
         [Required]
         public string Phone { get; set; }
         [JsonIgnore]
-        public List<Pet> Pets { get; set; }
+        public List<Pet>? Pets { get; set; }
         
     }
 }
