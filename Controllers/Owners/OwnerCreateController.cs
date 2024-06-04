@@ -21,7 +21,7 @@ namespace Prueba_de_ASP.NET.Controllers.Owners
             try
             {
                 _ownerRepository.CreateOwner(owner);
-                return Ok();
+                return Ok("Owner created successfully");
             }
             catch
             {
