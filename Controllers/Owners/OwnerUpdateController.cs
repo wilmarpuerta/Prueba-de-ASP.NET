@@ -1,27 +1,32 @@
 
 using Microsoft.AspNetCore.Mvc;
+using Prueba_de_ASP.NET.Models;
+using Prueba_de_ASP.NET.Services.Owners;
 
 namespace Prueba_de_ASP.NET.Controllers.Owners
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class OwnerUpdateController : Controller
     {
-        private readonly ILogger<OwnerUpdateController> _logger;
-
-        public OwnerUpdateController(ILogger<OwnerUpdateController> logger)
+        private readonly IOwnersRepository _ownersRepository;
+        public OwnerUpdateController(IOwnersRepository ownersRepository)
         {
-            _logger = logger;
+            _ownersRepository = ownersRepository;
         }
 
-        public IActionResult Index()
+        [HttpPut("Update/{id}")]
+        public IActionResult Update(int id, [FromBody] Owner owner)
         {
-            return View();
+            try
+            {
+                _ownersRepository.UpdateOwner(id, owner);
+                return Ok("Owner updated successfully");
+            }
+            catch
+            {
+                return BadRequest("Owner update failed");
+            }
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
-        }
+        
     }
 }

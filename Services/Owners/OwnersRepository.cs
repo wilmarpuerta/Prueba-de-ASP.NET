@@ -38,7 +38,16 @@ namespace Prueba_de_ASP.NET.Services.Owners
 
         public void UpdateOwner(int id, Owner owner)
         {
-            throw new NotImplementedException();
+            var OwnerUpdate = _baseContext.Owners.FirstOrDefault(o => o.Id == id);
+
+            OwnerUpdate.Names = owner.Names;
+            OwnerUpdate.LastNames = owner.LastNames;
+            OwnerUpdate.Email = owner.Email;
+            OwnerUpdate.Address = owner.Address;
+            OwnerUpdate.Phone = owner.Phone;
+
+            _baseContext.Update(OwnerUpdate);
+            _baseContext.SaveChanges();
         }
     }
 }
