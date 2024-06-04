@@ -15,7 +15,8 @@ namespace Prueba_de_ASP.NET.Services.Owners
 
         public void CreateOwner(Owner owner)
         {
-            throw new NotImplementedException();
+            _baseContext.Owners.Add(owner);
+            _baseContext.SaveChanges();
         }
 
         public void DeleteOwner(int id)
