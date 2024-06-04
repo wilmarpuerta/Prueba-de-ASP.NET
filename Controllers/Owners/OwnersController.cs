@@ -1,27 +1,43 @@
 
 using Microsoft.AspNetCore.Mvc;
+using Prueba_de_ASP.NET.Models;
+using Prueba_de_ASP.NET.Services.Owners;
 
 namespace Prueba_de_ASP.NET.Controllers.Owners
 {
+    [ApiController]
     [Route("[controller]")]
-    public class OwnersController : Controller
+    public class OwnersController : ControllerBase
     {
-        private readonly ILogger<OwnersController> _logger;
+       private readonly IOwnersRepository _ownersRepository;
+       public OwnersController(IOwnersRepository ownersRepository)
+       {
+           _ownersRepository = ownersRepository;
+       }
 
-        public OwnersController(ILogger<OwnersController> logger)
-        {
-            _logger = logger;
-        }
+       [HttpGet("List")]
+       public IEnumerable<Owner> GetOwners()
+       {
+            try
+            {
+                return _ownersRepository.GetOwners();
+            }
+            catch
+            {
+                return (IEnumerable<Owner>)BadRequest("Error getting owners");
+            }
+       }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View("Error!");
-        }
+       [HttpGet("List/{id}")]
+       public Owner GetOwnerById(int id)
+       {
+            var Owner = _ownersRepository.GetOwner(id);
+            if(!ModelState.IsValid)
+            {
+                NotFound("Owner not found");
+            }
+            
+            return Owner;
+       }
     }
 }

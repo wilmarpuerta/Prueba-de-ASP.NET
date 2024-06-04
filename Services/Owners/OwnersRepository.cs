@@ -26,12 +26,14 @@ namespace Prueba_de_ASP.NET.Services.Owners
 
         public Owner GetOwner(int id)
         {
-            throw new NotImplementedException();
+            var owner = _baseContext.Owners.FirstOrDefault(o => o.Id == id);
+            return owner;
         }
 
         public IEnumerable<Owner> GetOwners()
         {
-            throw new NotImplementedException();
+            var owners = _baseContext.Owners.ToList();
+            return owners;
         }
 
         public void UpdateOwner(int id, Owner owner)
