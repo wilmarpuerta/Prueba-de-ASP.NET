@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Prueba_de_ASP.NET.Data;
 using Prueba_de_ASP.NET.Services.Owners;
 using Prueba_de_ASP.NET.Services.Pets;
+using Prueba_de_ASP.NET.Services.Quotes;
 using Prueba_de_ASP.NET.Services.Vets;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IOwnersRepository, OwnersRepository>();
 builder.Services.AddScoped<IPetsRepository, PetsRepository>();
 builder.Services.AddScoped<IVetsRepository, VetsRepository>();
+builder.Services.AddScoped<IQuotesRepository, QuotesRepository>();
 
 builder.Services.AddDbContext<BaseContext> (options => 
     options.UseMySql(
