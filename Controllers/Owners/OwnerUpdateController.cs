@@ -5,7 +5,7 @@ using Prueba_de_ASP.NET.Services.Owners;
 
 namespace Prueba_de_ASP.NET.Controllers.Owners
 {
-    [Route("api/[controller]")]
+    [Route("api/owners")]
     public class OwnerUpdateController : Controller
     {
         private readonly IOwnersRepository _ownersRepository;
@@ -14,7 +14,7 @@ namespace Prueba_de_ASP.NET.Controllers.Owners
             _ownersRepository = ownersRepository;
         }
 
-        [HttpPut("Update/{id}")]
+        [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] Owner owner)
         {
             try

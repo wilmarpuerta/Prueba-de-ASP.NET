@@ -15,7 +15,7 @@ namespace Prueba_de_ASP.NET.Controllers.Owners
            _ownersRepository = ownersRepository;
        }
 
-       [HttpGet("List")]
+       [HttpGet]
        public IEnumerable<Owner> GetOwners()
        {
             try
@@ -28,7 +28,7 @@ namespace Prueba_de_ASP.NET.Controllers.Owners
             }
        }
 
-       [HttpGet("List/{id}")]
+       [HttpGet("{id}")]
        public Owner GetOwnerById(int id)
        {
             var Owner = _ownersRepository.GetOwner(id);

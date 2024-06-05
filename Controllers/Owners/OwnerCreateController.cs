@@ -6,7 +6,7 @@ using Prueba_de_ASP.NET.Services.Owners;
 namespace Prueba_de_ASP.NET.Controllers.Owners
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/owners")]
     public class OwnerCreateController : ControllerBase
     {
         private readonly IOwnersRepository _ownerRepository;
@@ -15,7 +15,7 @@ namespace Prueba_de_ASP.NET.Controllers.Owners
             _ownerRepository = ownerRepository;
         }
 
-        [HttpPost("Create")]
+        [HttpPost]
         public ActionResult Create([FromBody] Owner owner)
         {
             try
