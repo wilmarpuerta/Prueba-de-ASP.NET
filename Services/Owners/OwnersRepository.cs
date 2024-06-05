@@ -19,11 +19,6 @@ namespace Prueba_de_ASP.NET.Services.Owners
             _baseContext.SaveChanges();
         }
 
-        public void DeleteOwner(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public Owner GetOwner(int id)
         {
             var owner = _baseContext.Owners.FirstOrDefault(o => o.Id == id);
