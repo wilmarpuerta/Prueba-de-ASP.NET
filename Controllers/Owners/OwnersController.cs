@@ -6,7 +6,7 @@ using Prueba_de_ASP.NET.Services.Owners;
 namespace Prueba_de_ASP.NET.Controllers.Owners
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/owners")]
     public class OwnersController : ControllerBase
     {
        private readonly IOwnersRepository _ownersRepository;
