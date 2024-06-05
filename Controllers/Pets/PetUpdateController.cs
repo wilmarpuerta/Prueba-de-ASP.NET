@@ -5,7 +5,7 @@ using Prueba_de_ASP.NET.Services.Pets;
 
 namespace Prueba_de_ASP.NET.Controllers.Pets
 {
-    [Route("api/[controller]")]
+    [Route("api/pets")]
     public class PetUpdateController : Controller
     {
         private readonly IPetsRepository _petsRepository;
@@ -14,7 +14,7 @@ namespace Prueba_de_ASP.NET.Controllers.Pets
            _petsRepository = petsRepository;
        }
 
-        [HttpPut("Update/{id}")]
+        [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] Pet pet)
         {
             try

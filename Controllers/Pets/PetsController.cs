@@ -6,7 +6,7 @@ using Prueba_de_ASP.NET.Services.Pets;
 namespace Prueba_de_ASP.NET.Controllers.Pets
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/pets")]
     public class PetsController : ControllerBase
     {
        private readonly IPetsRepository _petsRepository;
@@ -15,7 +15,7 @@ namespace Prueba_de_ASP.NET.Controllers.Pets
            _petsRepository = petsRepository;
        }
 
-       [HttpGet("List")]
+       [HttpGet]
        public IEnumerable<Pet> GetOwners()
        {
             try
@@ -28,7 +28,7 @@ namespace Prueba_de_ASP.NET.Controllers.Pets
             }
        }
 
-       [HttpGet("List/{id}")]
+       [HttpGet("{id}")]
        public Pet GetPetById(int id)
        {
             var Pet = _petsRepository.GetPet(id);

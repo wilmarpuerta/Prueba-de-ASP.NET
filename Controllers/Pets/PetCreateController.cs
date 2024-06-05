@@ -6,7 +6,7 @@ using Prueba_de_ASP.NET.Services.Pets;
 namespace Prueba_de_ASP.NET.Controllers.Pets
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/pets")]
     public class PetCreateController : ControllerBase
     {
        private readonly IPetsRepository _petsRepository;
@@ -15,7 +15,7 @@ namespace Prueba_de_ASP.NET.Controllers.Pets
            _petsRepository = petsRepository;
        }
 
-        [HttpPost("Create")]
+        [HttpPost]
         public ActionResult Create([FromBody] Pet pet)
         {
             try
