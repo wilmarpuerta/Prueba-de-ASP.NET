@@ -16,7 +16,7 @@ namespace Prueba_de_ASP.NET.Controllers.Pets
        }
 
        [HttpGet]
-       public IEnumerable<Pet> GetOwners()
+       public IEnumerable<Pet> GetPets()
        {
             try
             {
@@ -24,7 +24,7 @@ namespace Prueba_de_ASP.NET.Controllers.Pets
             }
             catch
             {
-                return (IEnumerable<Pet>)BadRequest("Error getting owners");
+                return (IEnumerable<Pet>)BadRequest("Error getting Pets");
             }
        }
 
