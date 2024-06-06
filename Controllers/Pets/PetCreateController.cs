@@ -21,7 +21,7 @@ namespace Prueba_de_ASP.NET.Controllers.Pets
             try
             {
                 _petsRepository.CreatePet(pet);
-                return Ok();
+                return Ok("Pet created successfully");
             }
             catch
             {
