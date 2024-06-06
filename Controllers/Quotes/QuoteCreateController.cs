@@ -10,7 +10,7 @@ namespace Prueba_de_ASP.NET.Controllers.Quotes
     public class QuoteCreateController : ControllerBase
     {
         private readonly IQuotesRepository _quotesRepository;
-        public QuoteCreateController(QuotesRepository quotesRepository)
+        public QuoteCreateController(IQuotesRepository quotesRepository)
         {
             _quotesRepository = quotesRepository;
         }
