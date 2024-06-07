@@ -1,5 +1,6 @@
 
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Prueba_de_ASP.NET.Models
 {
@@ -14,5 +15,7 @@ namespace Prueba_de_ASP.NET.Models
         public string Address { get; set; }
         [Required]
         public string Email { get; set; }
+        [JsonIgnore]
+        public List<Quote>? quotes { get; set; }
     }
 }

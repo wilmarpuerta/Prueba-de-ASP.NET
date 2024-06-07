@@ -17,7 +17,6 @@ namespace Prueba_de_ASP.NET.Models
         public DateTime DateBirth { get; set; }
         [Required]
         public int OwnerId { get; set; }
-        [JsonIgnore]
         public Owner? Owner { get; set; }
         [Required]
         public string Photo { get; set; }
