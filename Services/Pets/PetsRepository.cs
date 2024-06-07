@@ -1,5 +1,6 @@
 
 
+using Microsoft.EntityFrameworkCore;
 using Prueba_de_ASP.NET.Data;
 using Prueba_de_ASP.NET.Models;
 
@@ -26,13 +27,13 @@ namespace Prueba_de_ASP.NET.Services.Pets
 
         public Pet GetPet(int id)
         {
-            var pet = _baseContext.Pets.FirstOrDefault(o => o.Id == id);
+            var pet = _baseContext.Pets.Include(p => p.Owner).FirstOrDefault(o => o.Id == id);
             return pet;
         }
 
         public IEnumerable<Pet> GetPets()
         {
-            var pets = _baseContext.Pets.ToList();
+            var pets = _baseContext.Pets.Include(p => p.Owner).ToList();
             return pets;
         }
 

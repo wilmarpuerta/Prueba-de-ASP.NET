@@ -1,5 +1,6 @@
 
 
+using Microsoft.EntityFrameworkCore;
 using Prueba_de_ASP.NET.Data;
 using Prueba_de_ASP.NET.Models;
 
@@ -20,13 +21,13 @@ namespace Prueba_de_ASP.NET.Services.Quotes
 
         public Quote GetQuote(int id)
         {
-            var quote = _baseContext.Quotes.FirstOrDefault(q => q.Id == id);
+            var quote = _baseContext.Quotes.Include(p => p.pet).Include(v => v.vet).FirstOrDefault(q => q.Id == id);
             return quote;
         }
 
         public IEnumerable<Quote> GetQuotes()
         {
-            var quotes = _baseContext.Quotes.ToList();
+            var quotes = _baseContext.Quotes.Include(p => p.pet).Include(v => v.vet).ToList();
             return quotes;
         }
 
