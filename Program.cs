@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Prueba_de_ASP.NET.Data;
+using Prueba_de_ASP.NET.Services.Email;
 using Prueba_de_ASP.NET.Services.Owners;
 using Prueba_de_ASP.NET.Services.Pets;
 using Prueba_de_ASP.NET.Services.Quotes;
@@ -17,11 +18,22 @@ builder.Services.AddScoped<IOwnersRepository, OwnersRepository>();
 builder.Services.AddScoped<IPetsRepository, PetsRepository>();
 builder.Services.AddScoped<IVetsRepository, VetsRepository>();
 builder.Services.AddScoped<IQuotesRepository, QuotesRepository>();
+builder.Services.AddScoped<SendEmail>();
+
 
 builder.Services.AddDbContext<BaseContext> (options => 
     options.UseMySql(
         builder.Configuration.GetConnectionString("MysqlConnection"),
         Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.20-mysql")));
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAnyOrigin",
+        builder => builder.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
 
 var app = builder.Build();
 
@@ -53,6 +65,9 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseCors("AllowAnyOrigin");
 
 app.MapControllers();
 
