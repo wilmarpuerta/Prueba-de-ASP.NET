@@ -20,11 +20,6 @@ namespace Prueba_de_ASP.NET.Services.Pets
             _baseContext.SaveChanges();
         }
 
-        public void DeletePet(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public Pet GetPet(int id)
         {
             var pet = _baseContext.Pets.Include(p => p.Owner).FirstOrDefault(o => o.Id == id);
@@ -35,6 +30,18 @@ namespace Prueba_de_ASP.NET.Services.Pets
         {
             var pets = _baseContext.Pets.Include(p => p.Owner).ToList();
             return pets;
+        }
+
+        public IEnumerable<Pet> GetPetsByDate(DateOnly date)
+        {
+            var petsDate = _baseContext.Pets.Where(p => p.DateBirth == date).Include(o => o.Owner).ToList();
+            return petsDate;
+        }
+
+        public IEnumerable<Pet> GetPetsByOwner(int id)
+        {
+            var petsOwner =_baseContext.Pets.Where(p => p.OwnerId == id).ToList();
+            return petsOwner;
         }
 
         public void UpdatePet(int id, Pet pet)

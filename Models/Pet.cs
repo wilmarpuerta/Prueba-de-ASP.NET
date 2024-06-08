@@ -14,7 +14,7 @@ namespace Prueba_de_ASP.NET.Models
         [Required]
         public string Race { get; set; }
         [Required]
-        public DateTime DateBirth { get; set; }
+        public DateOnly DateBirth { get; set; }
         [Required]
         public int OwnerId { get; set; }
         public Owner? Owner { get; set; }

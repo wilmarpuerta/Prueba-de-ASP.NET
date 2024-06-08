@@ -39,5 +39,27 @@ namespace Prueba_de_ASP.NET.Controllers.Pets
             
             return Pet;
        }
+
+       [HttpGet("{id}/owner")]
+       public IEnumerable<Pet> GetPetsOwner(int id)
+       {
+        var Pets = _petsRepository.GetPetsByOwner(id);
+        if(!ModelState.IsValid)
+        {
+            NotFound("Owner not found");
+        }
+        return Pets;
+       }
+
+       [HttpGet("{date}/birthday")]
+       public IEnumerable<Pet> GetPetsBirthday(DateOnly date)
+       {
+        var Pets = _petsRepository.GetPetsByDate(date);
+        if(!ModelState.IsValid)
+        {
+            NotFound("Date not found");
+        }
+        return Pets;
+       }
     }
 }
