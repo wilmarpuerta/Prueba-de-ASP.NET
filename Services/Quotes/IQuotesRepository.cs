@@ -9,7 +9,7 @@ namespace Prueba_de_ASP.NET.Services.Quotes
         IEnumerable<Quote> GetQuotesByDate(DateOnly date);
         IEnumerable<Quote> GetQuotesByVet(int id);
         Quote GetQuote(int id);
-        void CreateQuote(Quote quote);
+        Task<Quote> CreateQuote(Quote quote);
         void UpdateQuote(int id, Quote quote);
     }
 }

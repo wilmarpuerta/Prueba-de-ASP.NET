@@ -1,22 +1,41 @@
 
-
 using Microsoft.EntityFrameworkCore;
 using Prueba_de_ASP.NET.Data;
 using Prueba_de_ASP.NET.Models;
+using Prueba_de_ASP.NET.Services.Email;
+using Prueba_de_ASP.NET.Services.Pets;
 
 namespace Prueba_de_ASP.NET.Services.Quotes
 {
     public class QuotesRepository : IQuotesRepository
     {
         private readonly BaseContext _baseContext;
-        public QuotesRepository(BaseContext baseContext)
+        private readonly SendEmail _sendEmail;
+        private readonly IPetsRepository _petsRepository;
+        public QuotesRepository(BaseContext baseContext, SendEmail sendEmail, IPetsRepository petsRepository)
         {
             _baseContext = baseContext;
+            _sendEmail = sendEmail;
+            _petsRepository = petsRepository;
         }
-        public void CreateQuote(Quote quote)
+        public async Task<Quote> CreateQuote(Quote quote)
         {
             _baseContext.Quotes.Add(quote);
             _baseContext.SaveChanges();
+
+            var pet = _petsRepository.GetPet(quote.PetId);
+
+            var from = "MS_TEpzKI@trial-v69oxl5om7kg785k.mlsender.net";
+            var fromName = "Clínica veterinaria";
+            var to = new List<string> { pet.Owner.Email };
+            var toNames = new List<string> { pet.Owner.Names + " " + pet.Owner.LastNames };
+            var subject = "Confirmación de Cita";
+            var text = $"Hola { pet.Owner.Names + " " + pet.Owner.LastNames }, tu cita ha sido confirmada para el {quote.Date.ToString("dd/MM/yyyy")}";
+            var html = $"<p>Hola { pet.Owner.Names + " " + pet.Owner.LastNames },</p><p>Tu cita ha sido confirmada para el <strong>{quote.Date.ToString("dd/MM/yyyy")}.</p>";
+
+            await _sendEmail.SendEmailAsync(from, fromName, to, toNames, subject, text, html);
+
+            return quote;
         }
 
         public Quote GetQuote(int id)
