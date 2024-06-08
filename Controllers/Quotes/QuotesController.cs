@@ -39,5 +39,27 @@ namespace Prueba_de_ASP.NET.Controllers.Quotes
             
             return Quote;
         }
+
+        [HttpGet("{date}/date")]
+        public IEnumerable<Quote> GetQuotesByDate(DateOnly date)
+        {
+            var Quotes = _quotesRepository.GetQuotesByDate(date);
+            if(!ModelState.IsValid)
+            {
+                NotFound("Date not found");
+            }
+            return Quotes;
+        }
+
+        [HttpGet("{id}/vet")]
+        public IEnumerable<Quote> GetQuotesByVet(int id)
+        {
+            var Quotes = _quotesRepository.GetQuotesByVet(id);
+            if(!ModelState.IsValid)
+            {
+                NotFound("Vet not found");
+            }
+            return Quotes;
+        }
     }
 }

@@ -21,14 +21,26 @@ namespace Prueba_de_ASP.NET.Services.Quotes
 
         public Quote GetQuote(int id)
         {
-            var quote = _baseContext.Quotes.Include(p => p.pet).Include(v => v.vet).FirstOrDefault(q => q.Id == id);
+            var quote = _baseContext.Quotes.Include(p => p.Pet).Include(v => v.Vet).FirstOrDefault(q => q.Id == id);
             return quote;
         }
 
         public IEnumerable<Quote> GetQuotes()
         {
-            var quotes = _baseContext.Quotes.Include(p => p.pet).Include(v => v.vet).ToList();
+            var quotes = _baseContext.Quotes.Include(p => p.Pet).Include(v => v.Vet).ToList();
             return quotes;
+        }
+
+        public IEnumerable<Quote> GetQuotesByDate(DateOnly date)
+        {
+            var quotesDate = _baseContext.Quotes.Where(q => q.Date == date).ToList();
+            return quotesDate;
+        }
+
+        public IEnumerable<Quote> GetQuotesByVet(int id)
+        {
+            var quotesVet = _baseContext.Quotes.Where(q => q.VetId == id).Include(v => v.Vet).ToList();
+            return quotesVet;
         }
 
         public void UpdateQuote(int id, Quote quote)
