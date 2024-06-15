@@ -36,7 +36,7 @@ builder.Services.AddCors(options =>
 });
 
 
-builder.Services.AddAutoMapper(typeof(OwnerProfile), typeof(PetProfile), typeof(QuoteProfile), typeof(VetProfile));
+builder.Services.AddAutoMapper(typeof(OwnerProfile), typeof(PetProfile), typeof(QuoteProfile));
 
 var app = builder.Build();
 
