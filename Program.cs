@@ -5,6 +5,7 @@ using Prueba_de_ASP.NET.Services.Owners;
 using Prueba_de_ASP.NET.Services.Pets;
 using Prueba_de_ASP.NET.Services.Quotes;
 using Prueba_de_ASP.NET.Services.Vets;
+using Prueba_de_ASP.NET.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,9 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
+
+
+builder.Services.AddAutoMapper(typeof(OwnerProfile), typeof(PetProfile), typeof(QuoteProfile), typeof(VetProfile));
 
 var app = builder.Build();
 
