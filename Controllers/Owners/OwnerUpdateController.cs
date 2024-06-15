@@ -1,5 +1,6 @@
 
 using Microsoft.AspNetCore.Mvc;
+using Prueba_de_ASP.NET.DTOs;
 using Prueba_de_ASP.NET.Models;
 using Prueba_de_ASP.NET.Services.Owners;
 
@@ -15,7 +16,7 @@ namespace Prueba_de_ASP.NET.Controllers.Owners
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Owner owner)
+        public IActionResult Update(int id, [FromBody] OwnerDto owner)
         {
             try
             {

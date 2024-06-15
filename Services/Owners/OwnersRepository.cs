@@ -1,6 +1,7 @@
 
-
+using AutoMapper;
 using Prueba_de_ASP.NET.Data;
+using Prueba_de_ASP.NET.DTOs;
 using Prueba_de_ASP.NET.Models;
 
 namespace Prueba_de_ASP.NET.Services.Owners
@@ -8,9 +9,11 @@ namespace Prueba_de_ASP.NET.Services.Owners
     public class OwnersRepository : IOwnersRepository
     {
         private readonly BaseContext _baseContext;
-        public OwnersRepository(BaseContext baseContext)
+        private readonly IMapper _mapper;
+        public OwnersRepository(BaseContext baseContext, IMapper mapper)
         {
             _baseContext = baseContext;
+            _mapper = mapper;
         }
 
         public void CreateOwner(Owner owner)
@@ -31,17 +34,11 @@ namespace Prueba_de_ASP.NET.Services.Owners
             return owners;
         }
 
-        public void UpdateOwner(int id, Owner owner)
+        public void UpdateOwner(int id, OwnerDto owner)
         {
             var OwnerUpdate = _baseContext.Owners.FirstOrDefault(o => o.Id == id);
 
-            OwnerUpdate.Names = owner.Names;
-            OwnerUpdate.LastNames = owner.LastNames;
-            OwnerUpdate.Email = owner.Email;
-            OwnerUpdate.Address = owner.Address;
-            OwnerUpdate.Phone = owner.Phone;
-
-            _baseContext.Update(OwnerUpdate);
+            _mapper.Map(owner, OwnerUpdate);
             _baseContext.SaveChanges();
         }
     }
