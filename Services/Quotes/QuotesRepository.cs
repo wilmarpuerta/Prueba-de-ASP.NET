@@ -1,6 +1,8 @@
 
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Prueba_de_ASP.NET.Data;
+using Prueba_de_ASP.NET.DTOs;
 using Prueba_de_ASP.NET.Models;
 using Prueba_de_ASP.NET.Services.Email;
 using Prueba_de_ASP.NET.Services.Pets;
@@ -12,11 +14,13 @@ namespace Prueba_de_ASP.NET.Services.Quotes
         private readonly BaseContext _baseContext;
         private readonly SendEmail _sendEmail;
         private readonly IPetsRepository _petsRepository;
-        public QuotesRepository(BaseContext baseContext, SendEmail sendEmail, IPetsRepository petsRepository)
+        private readonly IMapper _mapper;
+        public QuotesRepository(BaseContext baseContext, SendEmail sendEmail, IPetsRepository petsRepository, IMapper mapper)
         {
             _baseContext = baseContext;
             _sendEmail = sendEmail;
             _petsRepository = petsRepository;
+            _mapper = mapper;
         }
         public async Task<Quote> CreateQuote(Quote quote)
         {
@@ -62,14 +66,11 @@ namespace Prueba_de_ASP.NET.Services.Quotes
             return quotesVet;
         }
 
-        public void UpdateQuote(int id, Quote quote)
+        public void UpdateQuote(int id, QuoteDto quote)
         {
             var quoteUpdate = _baseContext.Quotes.FirstOrDefault(q => q.Id == id);
-            quoteUpdate.Date = quote.Date;
-            quoteUpdate.PetId = quote.PetId;
-            quoteUpdate.VetId = quote.VetId;
-            quoteUpdate.Description = quote.Description;
-
+            
+            _mapper.Map(quote, quoteUpdate);
             _baseContext.SaveChanges();
         }
     }

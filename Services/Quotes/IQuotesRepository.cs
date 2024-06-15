@@ -1,4 +1,5 @@
 
+using Prueba_de_ASP.NET.DTOs;
 using Prueba_de_ASP.NET.Models;
 
 namespace Prueba_de_ASP.NET.Services.Quotes
@@ -10,6 +11,6 @@ namespace Prueba_de_ASP.NET.Services.Quotes
         IEnumerable<Quote> GetQuotesByVet(int id);
         Quote GetQuote(int id);
         Task<Quote> CreateQuote(Quote quote);
-        void UpdateQuote(int id, Quote quote);
+        void UpdateQuote(int id, QuoteDto quote);
     }
 }
