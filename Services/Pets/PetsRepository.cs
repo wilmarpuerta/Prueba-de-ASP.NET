@@ -1,7 +1,9 @@
 
 
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Prueba_de_ASP.NET.Data;
+using Prueba_de_ASP.NET.DTOs;
 using Prueba_de_ASP.NET.Models;
 
 namespace Prueba_de_ASP.NET.Services.Pets
@@ -9,9 +11,11 @@ namespace Prueba_de_ASP.NET.Services.Pets
     public class PetsRepository : IPetsRepository
     {
         private readonly BaseContext _baseContext;
-        public PetsRepository(BaseContext baseContext)
+        private readonly IMapper _mapper;
+        public PetsRepository(BaseContext baseContext, IMapper mapper)
         {
             _baseContext = baseContext;
+            _mapper = mapper;
         }
 
         public void CreatePet(Pet pet)
@@ -44,18 +48,11 @@ namespace Prueba_de_ASP.NET.Services.Pets
             return petsOwner;
         }
 
-        public void UpdatePet(int id, Pet pet)
+        public void UpdatePet(int id, PetDto pet)
         {
             var petUpdate = _baseContext.Pets.FirstOrDefault(o => o.Id == id);
 
-            petUpdate.Name = pet.Name;
-            petUpdate.Specie = petUpdate.Specie;
-            petUpdate.Race = pet.Race;
-            petUpdate.DateBirth = pet.DateBirth;
-            petUpdate.OwnerId = pet.OwnerId;
-            petUpdate.Photo = pet.Photo;
-
-            _baseContext.Update(petUpdate);
+            _mapper.Map(petUpdate, petUpdate);
             _baseContext.SaveChanges();
         }
     }

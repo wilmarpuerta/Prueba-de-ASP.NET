@@ -1,4 +1,5 @@
 
+using Prueba_de_ASP.NET.DTOs;
 using Prueba_de_ASP.NET.Models;
 
 namespace Prueba_de_ASP.NET.Services.Pets
@@ -10,6 +11,6 @@ namespace Prueba_de_ASP.NET.Services.Pets
         IEnumerable<Pet> GetPetsByDate(DateOnly date);
         Pet GetPet(int id);
         void CreatePet(Pet pet);
-        void UpdatePet(int id, Pet pet);
+        void UpdatePet(int id, PetDto pet);
     }
 }
